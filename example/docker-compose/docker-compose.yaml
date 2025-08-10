@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+  smtp-relay:
+    image: your-smtp-relay-image
+    container_name: smtp-relay
+    ports:
+      - "25:25"
+    environment:
+      SMTP_MESSAGE_SIZE_LIMIT: 52428800
+      SMTP_RELAY_HOST: "smtp.office365.com:587"
+      SMTP_RELAY_MYHOSTNAME: "relay.example.com"
+      SMTP_RELAY_MYNETWORKS: "10.0.0.0/8, 192.168.0.0/16"
+      SMTP_RELAY_USERNAME: "user@example.com"
+      SMTP_RELAY_PASSWORD: "yourpassword"
+    restart: unless-stopped
