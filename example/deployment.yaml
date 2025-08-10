@@ -2,6 +2,7 @@ apiVersion: source.toolkit.fluxcd.io/v1
 kind: GitRepository
 metadata:
   name: cossth
+  namespace: flux-system
 spec:
   interval: 24h
   url: https://github.com/cossth/smtp-proxy
