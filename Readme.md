@@ -39,7 +39,7 @@ docker run -d --name smtp-relay \
 ---
 
 ## Example `docker-compose.yml`
-Please see [](./example/docker-compose/docker-compose.yaml)
+Please see [docker-compose.yaml](./example/docker-compose/docker-compose.yaml)
 
 ```yaml
 version: '3.8'
@@ -57,6 +57,36 @@ services:
       SMTP_RELAY_USERNAME: "user@example.com"
       SMTP_RELAY_PASSWORD: "yourpassword"
     restart: unless-stopped
+```
+
+## Example `Flux/Kustomization`
+You can add below configs in your cluster to deploy the smtp-relay.
+
+[Kustomization Files](./example/kubernetes)
+
+```bash
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: cossth
+spec:
+  interval: 24h
+  url: https://github.com/cossth/smtp-proxy
+  ref:
+    branch: main
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: smtp-proxy
+  namespace: flux-system
+spec:
+  interval: 10m
+  path: ./example/kubernetes
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: cossth
 ```
 
 ## Security Notes
