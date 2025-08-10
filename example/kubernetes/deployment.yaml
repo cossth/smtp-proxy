@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: smtp-relay
+spec:
+  containers:
+    - name: smtp
+      image: your-smtp-relay:latest
+      resources:
+        requests:
+          memory: "128Mi"
+          cpu: "100m"
+        limits:
+          memory: "256Mi"
+          cpu: "500m"
+      envFrom:
+      - secretRef:
+          name: smtp-credentials
+      env:
+        - name: SMTP_MESSAGE_SIZE_LIMIT
+          value: "10485760" # 10 MB
