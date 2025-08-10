@@ -5,7 +5,7 @@ metadata:
 spec:
   containers:
     - name: smtp
-      image: your-smtp-relay:latest
+      image: ghcr.io/cossth/smtp-proxy:main
       resources:
         requests:
           memory: "128Mi"
